@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bminner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 12:17:19 by bminner           #+#    #+#             */
-/*   Updated: 2019/10/14 14:07:04 by bminner          ###   ########.fr       */
+/*   Created: 2019/10/15 15:50:00 by bminner           #+#    #+#             */
+/*   Updated: 2019/10/15 15:50:03 by bminner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	**ft_split(char const *s, char c)
 {
-	char	*dest;
-	int		n;
-	int		i;
-
-	if ((dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
-		n = 0;
-	else
-		return (0);
-	i = 0;
-	while (s1[n] != '\0')
-	{
-		dest[n] = s1[n];
-		n++;
-	}
-	while (s2[i] != '\0')
-	{
-		dest[n + i] = s2[i];
-		i++;
-	}
-	dest[n + i] = '\0';
-	return (dest);
 }

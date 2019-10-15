@@ -1,39 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bminner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 12:17:19 by bminner           #+#    #+#             */
-/*   Updated: 2019/10/14 14:07:04 by bminner          ###   ########.fr       */
+/*   Created: 2019/10/15 13:54:49 by bminner           #+#    #+#             */
+/*   Updated: 2019/10/15 13:54:51 by bminner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <unistd.h>
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_putchar(char c, int fd)
 {
-	char	*dest;
-	int		n;
-	int		i;
+	write(fd, &c, 1);
+}
 
-	if ((dest = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
-		n = 0;
+int		max(int n, int fd)
+{
+	if (n == -2147483648)
+	{
+		ft_putchar('-', fd);
+		ft_putchar('2', fd);
+		n = 147483648;
+	}
+	return (n);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	n = max(n, fd);
+	if (n < 0)
+	{
+		ft_putchar('-', fd);
+		n *= -1;
+	}
+	if (n > 9)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar((n % 10) + 48, fd);
+	}
 	else
-		return (0);
-	i = 0;
-	while (s1[n] != '\0')
-	{
-		dest[n] = s1[n];
-		n++;
-	}
-	while (s2[i] != '\0')
-	{
-		dest[n + i] = s2[i];
-		i++;
-	}
-	dest[n + i] = '\0';
-	return (dest);
+		ft_putchar(n + 48, fd);
 }
