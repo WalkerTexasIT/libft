@@ -14,7 +14,7 @@
 
 int		trans(const char *str, int n)
 {
-	long val;
+	long long val;
 
 	val = 0;
 	while (str[n] != '\0')
@@ -30,7 +30,7 @@ int		trans(const char *str, int n)
 int		ft_atoi(const char *str)
 {
 	int n;
-	int val;
+	long long val;
 	int s;
 
 	n = 0;
