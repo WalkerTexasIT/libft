@@ -2,91 +2,79 @@
 #include <stdio.h>
 #include "libft.h"
 
-static int		pos_word(char *s, char c, unsigned int order)
+void			unmalloc(char **dest, char line)
 {
-	int				is_word;
-	unsigned int	n;
-	unsigned int	pos;
-
-	is_word = 0;
-	n = 0;
-	pos = 0;
-	while (s[pos] != '\0')
+	while (line >= 0)
 	{
-		if (is_word == 0 && s[pos] != c)
+		free(dest[line]);
+		line--;
+	}
+	free(dest);
+}
+
+int				count(char const *s, char c)
+{
+	int		n;
+	int		dest;
+
+	n = 0;
+	dest = 0;
+	while (*s != '\0')
+	{
+		if (*s != c && n == 0)
 		{
-			n++;
-			if (n == order + 1)
-				break ;
-			is_word = 1;
+			dest++;
+			n = 1;
 		}
-		else if (is_word == 1 && s[pos] == c)
-			is_word = 0;
-		pos++;
+		else if (n == 1 && *s == c)
+			n = 0;
+		s++;
 	}
-	return (pos);
+	return (dest);
 }
 
-static int		count_words(char *s, char c)
+int				linelong(char const *s, char c)
 {
-	int				i;
-	unsigned int	n;
+	int n;
 
 	n = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c && s[i + 1] != c)
-			n++;
-		i++;
-	}
+	if (*s == c)
+		return (-1);
+	while (*s != '\0' && *s != c)
+		n++;
 	return (n);
-}
-
-static char		*assign_word(char *s, char c)
-{
-	unsigned int	i;
-	unsigned int	len;
-	char			*dest;
-
-	len = 0;
-	while (s[len] != '\0' && s[len] != c)
-		len++;
-	dest = (char*)malloc(sizeof(char) * (len + 1));
-	i = 0;
-	while (i < len)
-		dest[i++] = *s++;
-	dest[i] = '\0';
-	return (dest);
 }
 
 char			**ft_split(char const *s, char c)
 {
-	unsigned int	n;
-	unsigned int	i;
-	char			**dest;
-	char			*ptr;
+	char	**dest;
+	int		line;
+	int		h;
 
-	if (!s)
+	if (!(dest = (char**)malloc(sizeof(char*) * (count(s, c) + 1)))
 		return (0);
-	ptr = (char*)s;
-	n = count_words(ptr, c);
-	if (!(dest = (char**)malloc(sizeof(char*) * (n + 1))))
-		return (0);
-	i = 0;
-	while (i < n)
+	line = 0;
+	while (*s != '\0')
 	{
-		dest[i] = assign_word(ptr + pos_word(ptr, c, i), c);
-		i++;
+		h = linelong(&s, c);
+		if (h >= 0)
+		{
+			if (!(dest[line] = (char*)malloc(sizeof(char) * (h + 1)))
+				unmalloc(dest, line);
+			*dest[line] = *s;
+			h--;
+			dest[line]++;
+			s++;
+		}
+		//refaire a partir du while car pas assez de place
 	}
-	dest[i] = 0;
 	return (dest);
 }
 
-/*int		main(void)
+int				main(void)
 {
-	char **dest;
-	int n;
+	char	**dest;
+	int		n;
 
 	n = 0;
 	dest = ft_split("salut suit sur su", 's');
@@ -96,4 +84,4 @@ char			**ft_split(char const *s, char c)
 		n++;
 	}
 	return (0);
-}*/
+}

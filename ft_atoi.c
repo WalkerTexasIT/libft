@@ -29,9 +29,9 @@ int		trans(const char *str, int n)
 
 int		ft_atoi(const char *str)
 {
-	int n;
-	long long val;
-	int s;
+	int			n;
+	long long	val;
+	int			s;
 
 	n = 0;
 	val = 0;
