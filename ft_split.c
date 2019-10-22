@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "libft.h"
 
-void			unmalloc(char **dest, char line)
+void			unmall(char **dest, int line)
 {
 	while (line >= 0)
 	{
@@ -10,6 +10,24 @@ void			unmalloc(char **dest, char line)
 		line--;
 	}
 	free(dest);
+}
+
+char	*ft_mall(char const *s, unsigned int start, size_t len)
+{
+	char			*dest;
+	int				n;
+
+	n = 0;
+	if (!(dest = (char*)malloc(sizeof(char) * (len + 1))))
+		return (0);
+	while (s[start] != '\0' && len > (unsigned long)n)
+	{
+		dest[n] = s[start];
+		n++;
+		start++;
+	}
+	dest[n] = '\0';
+	return (dest);
 }
 
 int				count(char const *s, char c)
@@ -33,15 +51,19 @@ int				count(char const *s, char c)
 	return (dest);
 }
 
-int				linelong(char const *s, char c)
+int				linelong(char const *s, char c, int h)
 {
 	int n;
 
 	n = 0;
-	if (*s == c)
-		return (-1);
-	while (*s != '\0' && *s != c)
+	if (s[h] == c)
+		return (0);
+	while (s[h] != '\0' && s[h] != c)
+	{
+		printf("%d, %d\n", n, h);
 		n++;
+		h++;
+	}
 	return (n);
 }
 
@@ -50,28 +72,31 @@ char			**ft_split(char const *s, char c)
 	char	**dest;
 	int		line;
 	int		h;
+	int		i;
 
-	if (!(dest = (char**)malloc(sizeof(char*) * (count(s, c) + 1)))
+	if (!(dest = (char**)malloc(sizeof(char*) * (count(s, c) + 1))))
 		return (0);
 	line = 0;
-	while (*s != '\0')
+	h = 0;
+	while (s[h] != '\0')
 	{
-		h = linelong(&s, c);
-		if (h >= 0)
+		i = linelong(s, c, h);
+		if (i > 0)
 		{
-			if (!(dest[line] = (char*)malloc(sizeof(char) * (h + 1)))
-				unmalloc(dest, line);
-			*dest[line] = *s;
-			h--;
-			dest[line]++;
-			s++;
+			if (ft_mall(s, (unsigned int)h, (size_t)i))
+			{
+				unmall(dest, line);
+				return (0);
+			}
+			dest[line] = ft_mall(s, (unsigned int)h, (size_t)i);
 		}
-		//refaire a partir du while car pas assez de place
+		h = h + i + 1;
+		dest[line] = 0;
 	}
 	return (dest);
 }
 
-int				main(void)
+/*int				main(void)
 {
 	char	**dest;
 	int		n;
@@ -84,4 +109,4 @@ int				main(void)
 		n++;
 	}
 	return (0);
-}
+}*/
