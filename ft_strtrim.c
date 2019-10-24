@@ -12,103 +12,84 @@
 
 #include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
+#include <string.h>
 
-size_t		ft_strlen(const char *src)
+int			ft_verif(char const *s1, char const *set)
 {
+	int i;
 	int n;
 
-	n = 0;
-	while (src[n] != '\0')
-		n++;
-	return (n);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char			*dest;
-	unsigned int	x;
-	int				n;
-
-	n = 0;
-	x = ft_strlen(s) - start;
-	if (len < x)
-		dest = malloc(x);
-	else if (len > x)
-		dest = malloc(len);
-	else
-		return (0);
-	while (s[start] != '\0' && len > (unsigned long)n)
+	i = 0;
+	while (s1[i] != '\0')
 	{
-		dest[n] = s[start];
-		n++;
-		start++;
-	}
-	return (dest);
-}
-
-size_t		fin(char const *s1, char const *set)
-{
-	size_t		n;
-	int			j;
-
-	n = ft_strlen(s1) - 1;
-	while (n > 0)
-	{
-		j = 0;
-		while (set[j] != '\0')
+		n = 0;
+		while (set[n] != '\0')
 		{
-			if (s1[n] == set[j])
+			if (s1[i] == set[n])
 				break ;
-			j++;
+			n++;
 		}
-		if (set[j] == '\0')
-			return (n);
-		n--;
+		if (set[i] == '\0')
+			return (1);
+		i++;
 	}
 	return (0);
 }
 
-size_t		debut(char const *s1, char const *set)
+int			ft_check(char const *s1, char const *set, int place)
 {
-	size_t		n;
-	int			j;
+	int n;
+	int i;
 
 	n = 0;
+	if (place == 1)
+		n = ft_strlen(s1) - 1;
 	while (s1[n] != '\0')
 	{
-		j = 0;
-		while (set[j] != '\0')
+		i = 0;
+		while (set[i] != '\0')
 		{
-			if (s1[n] == set[j])
+			if (s1[n] == set[i])
 				break ;
-			j++;
+			i++;
 		}
-		if (set[j] == '\0')
+		if (set[i] == '\0')
 			return (n);
-		n++;
+		if (place == 1)
+			n--;
+		else
+			n++;
 	}
-	return (0);
+	return (n);
 }
 
 char		*ft_strtrim(char const *s1, char const *set)
 {
-	char		*dest;
-	size_t		i;
+	int		n;
+	int		i;
+	char	*dest;
+	int		g;
 
-	i = ft_strlen(s1) - 1 - debut(s1, set) - fin(s1, set);
-	dest = ft_substr(s1, (unsigned int)debut(s1, set), i);
-
+	if (ft_verif(s1, set) == 0)
+	{
+		dest = (char*)malloc(sizeof(char) * 1);
+		return (dest);
+	}
+	if (s1 == 0 || set == 0)
+		return (0);
+	g = 0;
+	n = ft_check(s1, set, 0);
+	i = ft_check(s1, set, 1);
+	if (!(dest = (char*)malloc(sizeof(char) * ((i - n) + 1))))
+		return (0);
+	if (ft_verif(s1, set) == 0)
+		return (dest);
+	while (s1[n] != '\0' && n <= i)
+	{
+		dest[g] = s1[n];
+		g++;
+		n++;
+	}
+	dest[g] = '\0';
 	return (dest);
-}
-
-int			main(void)
-{
-	char s1[] = "  \n  \t  lorem \n ipsum \t dolor \n sit \t amet  \t \n ";
-	char set[] = " \n\t";
-
-	printf("test");
-	fflush(stdout);
-	printf("%s", ft_strtrim(s1, set));
-	return (0);
 }
