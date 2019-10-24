@@ -49,5 +49,6 @@ char			**ft_split(char const *s, char c);
 char			*ft_itoa(int n);
 char			*ft_strndup(const char *s, size_t n);
 char			*ft_strncpy(char *dest, const char *s, size_t n);
+char			*ft_strtrim(char const *s1, char const *set);
 
 #endif
