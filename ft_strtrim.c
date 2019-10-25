@@ -13,6 +13,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 int			ft_verif(char const *s1, char const *set)
 {
@@ -29,7 +30,7 @@ int			ft_verif(char const *s1, char const *set)
 				break ;
 			n++;
 		}
-		if (set[i] == '\0')
+		if (set[n] == '\0')
 			return (1);
 		i++;
 	}
@@ -70,25 +71,23 @@ char		*ft_strtrim(char const *s1, char const *set)
 	char	*dest;
 	int		g;
 
+	if (s1 == 0 || set == 0)
+		return (0);
 	if (ft_verif(s1, set) == 0)
 	{
 		dest = (char*)malloc(sizeof(char) * 1);
+		dest[0] = '\0';
 		return (dest);
 	}
-	if (s1 == 0 || set == 0)
-		return (0);
 	g = 0;
 	n = ft_check(s1, set, 0);
 	i = ft_check(s1, set, 1);
-	if (!(dest = (char*)malloc(sizeof(char) * ((i - n) + 1))))
+	if (!(dest = (char*)malloc(sizeof(char) * ((i - n) + 2))))
 		return (0);
-	if (ft_verif(s1, set) == 0)
-		return (dest);
-	while (s1[n] != '\0' && n <= i)
+	while (s1[n + g] != '\0' && (n + g) <= i)
 	{
-		dest[g] = s1[n];
+		dest[g] = s1[n + g];
 		g++;
-		n++;
 	}
 	dest[g] = '\0';
 	return (dest);

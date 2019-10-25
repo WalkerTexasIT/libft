@@ -17,6 +17,8 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	int n;
 
+	if (s == 0)
+		return ;
 	n = 0;
 	while (s[n] != '\0')
 	{
