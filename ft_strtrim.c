@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-int			ft_verif(char const *s1, char const *set)
+static int		ft_verif(char const *s1, char const *set)
 {
 	int i;
 	int n;
@@ -34,7 +34,7 @@ int			ft_verif(char const *s1, char const *set)
 	return (0);
 }
 
-int			ft_check(char const *s1, char const *set, int place)
+static int		ft_check(char const *s1, char const *set, int place)
 {
 	int n;
 	int i;
@@ -61,7 +61,7 @@ int			ft_check(char const *s1, char const *set, int place)
 	return (n);
 }
 
-char		*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char const *set)
 {
 	int		n;
 	int		i;

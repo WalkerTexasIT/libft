@@ -23,8 +23,6 @@ void	*ft_memmove(void *str1, const void *str2, size_t n)
 	x = 0;
 	dest = (unsigned char *)str1;
 	src = (unsigned char *)str2;
-	if (n == 0)
-		return (str1);
 	if (dest > src)
 		while (x < n)
 		{

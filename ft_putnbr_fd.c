@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-void	ft_putchar(char c, int fd)
+static void		ft_putchar(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-int		max(int n, int fd)
+static int		max(int n, int fd)
 {
 	if (n == -2147483648)
 	{
@@ -28,8 +28,10 @@ int		max(int n, int fd)
 	return (n);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(int n, int fd)
 {
+	if (fd < 0)
+		return ;
 	n = max(n, fd);
 	if (n < 0)
 	{

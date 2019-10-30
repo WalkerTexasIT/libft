@@ -6,13 +6,13 @@
 /*   By: bminner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:58:56 by bminner           #+#    #+#             */
-/*   Updated: 2019/10/08 13:58:57 by bminner          ###   ########.fr       */
+/*   Updated: 2019/10/28 14:14:20 by bminner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		trans(const char *str, int n)
+static int		trans(const char *str, int n)
 {
 	long long val;
 
@@ -27,7 +27,7 @@ int		trans(const char *str, int n)
 	return (val);
 }
 
-int		ft_atoi(const char *str)
+int				ft_atoi(const char *str)
 {
 	int			n;
 	long long	val;

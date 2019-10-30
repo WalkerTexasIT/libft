@@ -6,13 +6,13 @@
 /*   By: bminner <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 16:32:59 by bminner           #+#    #+#             */
-/*   Updated: 2019/10/14 16:33:00 by bminner          ###   ########.fr       */
+/*   Updated: 2019/10/28 15:00:46 by bminner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int					ft_len(long n)
+static int			ft_len(long n)
 {
 	int i;
 
